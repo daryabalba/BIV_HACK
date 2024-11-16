@@ -2,6 +2,7 @@ from tqdm import tqdm
 
 import pandas as pd
 
+import os
 import nltk
 import re
 import spacy
@@ -113,6 +114,9 @@ def main():
     prep_main = Preprocessor(df_main, stopwords.words('russian'), ['оплата'])
     prep_main.pipeline()
     main_clean = prep_main.get_df()
+
+    if not os.path.exists('./preprocessed/'):
+        os.makedirs('./preprocessed/')
 
     train_clean.to_csv('preprocessed/train_clean.csv', index=False)
     main_clean.to_csv('preprocessed/main_clean.csv', index=False)
