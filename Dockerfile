@@ -1,6 +1,11 @@
-FROM jupyter/scipy-notebook:latest
-WORKDIR /app
-RUN pip install --upgrade pip
+FROM python:3.8-slim-buster
+WORKDIR /BIV_HACK
 
-COPY # ПУТЬ К ФАЙЛУ НА КОМПЕ ПОТОМ ПРОБЕЛ ПОТОМ ПУТЬ К ФАЙЛУ В ДИРЕКТОРИИ IMAGE
-ENTRYPOINT ["jupyter", "название файла", "--ip=0.0.0.0", "--port=8888", "--allow-root"]
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY main.py main.py
+
+
+
+CMD ['python', '-u', 'main.py']
