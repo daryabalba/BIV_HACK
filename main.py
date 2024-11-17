@@ -4,12 +4,14 @@ import pandas as pd
 
 import os
 import nltk
+import rarfile
 import re
 import spacy
 
 nltk.download('stopwords')
 
 from nltk.corpus import stopwords
+from transformers import pipeline, FlaubertForSequenceClassification, FlaubertTokenizer
 
 
 class Preprocessor:
@@ -120,6 +122,23 @@ def main():
 
     train_clean.to_csv('preprocessed/train_clean.csv', index=False)
     main_clean.to_csv('preprocessed/main_clean.csv', index=False)
+
+    with rarfile.RarFile('best_model.rar') as rar:
+        rar.extractall('best_model')
+
+    model = FlaubertForSequenceClassification.from_pretrained('best_model')
+    tokenizer = FlaubertTokenizer.from_pretrained('best_model')
+
+    classification = pipeline('text-classification',
+                              model=model,
+                              tokenizer=tokenizer)
+
+    classified_texts = classification(main_clean['text'].tolist())
+    labels = [clf['label'] for clf in classified_texts]
+
+    main_clean['labels'] = labels
+    df_clean = main_clean.drop(columns=['text', 'sum'], axis=1)
+    df_clean.to_csv('output.tsv', sep='\t', index=False, header=False)
 
 
 if __name__ == '__main__':

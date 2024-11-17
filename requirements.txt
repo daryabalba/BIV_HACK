@@ -4,3 +4,5 @@ scikit-learn==1.5.2
 spacy==3.8.2
 pymorphy3==2.0.2
 tqdm==4.67.0
+transformers==4.46.2
+rarfile==4.2
