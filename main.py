@@ -127,7 +127,7 @@ def main():
     # with rarfile.RarFile('best_model.rar') as rar:
     #     rar.extractall('best_model')
 
-    model = FlaubertForSequenceClassification.from_pretrained('best_model')
+    model = FlaubertForSequenceClassification.from_pretrained('vchemsmisl/biv_hack_model')
     tokenizer = FlaubertTokenizer.from_pretrained('moctarsmal/bank-transactions-statements-classification')
 
     classification = pipeline('text-classification',
