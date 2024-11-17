@@ -1,7 +1,8 @@
 from tqdm import tqdm
 
 import pandas as pd
-
+import torch
+from torch import Tensor
 import os
 import nltk
 import rarfile
@@ -123,11 +124,11 @@ def main():
     train_clean.to_csv('preprocessed/train_clean.csv', index=False)
     main_clean.to_csv('preprocessed/main_clean.csv', index=False)
 
-    with rarfile.RarFile('best_model.rar') as rar:
-        rar.extractall('best_model')
+    # with rarfile.RarFile('best_model.rar') as rar:
+    #     rar.extractall('best_model')
 
     model = FlaubertForSequenceClassification.from_pretrained('best_model')
-    tokenizer = FlaubertTokenizer.from_pretrained('best_model')
+    tokenizer = FlaubertTokenizer.from_pretrained('moctarsmal/bank-transactions-statements-classification')
 
     classification = pipeline('text-classification',
                               model=model,
