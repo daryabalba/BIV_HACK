@@ -5,5 +5,5 @@ sacremoses==0.1.1
 scikit-learn==1.5.2
 spacy==3.8.2
 torch==2.5.1
+transformers==4.30.2
 tqdm==4.67.0
-transformers==4.46.2
